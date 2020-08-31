@@ -53,7 +53,10 @@ function readFileContent(filename, content) {
                 "created": parsedContent.created,
                 "completed": parsedContent.completed,
                 "result": parsedContent.result,
-                "manual_approval": parsedContent.manual_approval
+                "manual_approval": parsedContent.manual_approval,
+                "bolt_ons": parsedContent.bolt_ons,
+                "report_generated": parsedContent.report_generated,
+                "active": parsedContent.active
     },
         TableName : process.env.TABLE_NAME
         };

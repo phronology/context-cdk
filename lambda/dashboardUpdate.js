@@ -8,13 +8,6 @@ exports.handler = function (event, context, callback) {
         TableName: process.env.TABLE_NAME
     };
     
-    
-    // const report_generated = event.payload.Item.report_generated
-    // const bolt_ons = event.payload.Item.bolt_ons
-    // const active = event.payload.Item.active
-
-    
-
 
     if (event.httpMethod == 'GET') {
         dbClient.scan(scanningParams, function (err, data) {
@@ -25,9 +18,6 @@ exports.handler = function (event, context, callback) {
                     "statusCode": 200,
                     "headers": {
                         "Access-Control-Allow-Origin": "*"
-                        // "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-                        // "Access-Control-Allow-Methods": "OPTIONS,GET",
-                        // 'Content-Type': "application/json"
                     },
                     "body": JSON.stringify(data.Items),
                     "isBase64Encoded": false
@@ -39,16 +29,26 @@ exports.handler = function (event, context, callback) {
         
         const body = JSON.parse(event.body)
         console.log(body)
-        const approval = body.payload.Item.manual_approval
+
+        const keyCheck = function (keyArr) {
+            for (let k in keyArr) {
+                if (k != 'email') {
+                    return k
+                }
+            }
+        }
+
+        const postKey = keyCheck(body.payload.Item)
+        const postVal = body.payload.Item[postKey]
         const email = body.payload.Item.email
         const params = {
         TableName: process.env.TABLE_NAME,
         Key: {
             "email": email
         },
-        UpdateExpression: "set manual_approval = :ma",
+        UpdateExpression: `SET ${postKey} = :ma`,
         ExpressionAttributeValues: {
-            ":ma": approval, // use API post value
+            ":ma": postVal,
         },
         ReturnValues: "UPDATED_NEW"
     };

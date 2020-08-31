@@ -20,10 +20,12 @@
     "@aws-cdk/aws-iam": "^1.60.0",
     "@aws-cdk/aws-lambda": "^1.60.0",
     "@aws-cdk/aws-lambda-event-sources": "^1.60.0",
+    "@aws-cdk/aws-logs": "^1.60.0",
     "@aws-cdk/aws-s3": "^1.60.0",
     "@aws-cdk/aws-sns": "1.60.0",
     "@aws-cdk/aws-sns-subscriptions": "1.60.0",
     "@aws-cdk/aws-sqs": "1.60.0",
-    "@aws-cdk/core": "1.60.0"
+    "@aws-cdk/core": "1.60.0",
+    "@mobileposse/auto-delete-bucket": "^1.55.0"
   }
 }
